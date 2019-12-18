@@ -2,7 +2,6 @@
 """This is the base model class for AirBnB"""
 import uuid
 import models
-import datetime
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
@@ -14,12 +13,10 @@ class BaseModel:
     """This class will defines all common attributes/methods
     for other classes
     """
-    id = Column(Integer, primary_key=True)
-    name = Column(String(60), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow(),
-                        nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow(),
-                        nullable=False)
+
+    id = Column(String(60), unique=True, nullable=False, primary_key=True)
+    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """Instantiation of base model class
@@ -71,6 +68,10 @@ class BaseModel:
         my_dict["__class__"] = str(type(self).__name__)
         my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.updated_at.isoformat()
+        try:
+            del my_dict["_sa_instance_state"]
+        except:
+            pass
         return my_dict
 
     def delete(self):
