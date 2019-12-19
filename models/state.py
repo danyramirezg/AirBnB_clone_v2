@@ -12,4 +12,5 @@ class State(BaseModel, Base):
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
 
-    # ... for DBStorage: class attribute cities must represent a relationship with the class City. If the
+    # ... for DBStorage: class attribute cities must represent a
+    # relationship with the class City. If the

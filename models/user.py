@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """This is the user class"""
 
+from models.place import Place
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
