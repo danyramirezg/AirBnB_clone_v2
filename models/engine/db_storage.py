@@ -40,7 +40,7 @@ class DBStorage:
     def all(self, cls=None):
         """returns a dictionary
         """
-        classes = ['State', 'City', 'User']
+        classes = ['State', 'City', 'User', 'Place', 'Review']
         objs = {}
 
         if cls is None:
