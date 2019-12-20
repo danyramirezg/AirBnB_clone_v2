@@ -3,7 +3,7 @@
 
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 
 
 class Place(BaseModel, Base):
@@ -35,3 +35,9 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     amenity_ids = []
     reviews = relationship("Review", cascade="all, delete", backref="place")
+
+    place_amenity = Table('place_amenity', Base.metadata,
+                          Column('place_id', String(60),
+                                 ForeignKey('places.id'), primary_key=True),
+                          Column('amenity_id', String(60),
+                                 ForeignKey('amenities.id'), nullable=False))
