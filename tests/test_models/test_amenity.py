@@ -62,6 +62,32 @@ class TestAmenity(unittest.TestCase):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.amenity), True)
 
+    def test_pep8_tests_amenity(self):
+        """ Test for PEP8 ok. """
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(
+            ['tests/test_models/test_amenity.py'])
+        self.assertEqual(result.total_errors, 0, "Please fix pep8")
+
+    def test_docstring(self):
+        """Checks if docstring exists"""
+        self.assertTrue(len(Amenity.__doc__) > 1)
+        self.assertTrue(len(Amenity.__init__.__doc__) > 1)
+        self.assertTrue(len(Amenity.__str__.__doc__) > 1)
+        self.assertTrue(len(Amenity.save.__doc__) > 1)
+        self.assertTrue(len(Amenity.to_dict.__doc__) > 1)
+
+    def test_isinstance(self):
+        """"Test if is an instance of the class"""
+        obj = Amenity()
+        self.assertIsInstance(obj, Amenity)
+
+    def test_args(self):
+        """Arguments to the instance"""
+        b = Amenity(8)
+        self.assertEqual(type(b).__name__, "Amenity")
+        self.assertFalse(hasattr(b, "8"))
+
 
 if __name__ == "__main__":
     unittest.main()
