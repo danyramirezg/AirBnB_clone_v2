@@ -157,7 +157,7 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("all User")
             obj = f.getvalue()
-        my_id = obj[obj.find('(')+1:obj.find(')')]
+        my_id = obj[obj.find('(') + 1:obj.find(')')]
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("update User " + my_id)
             self.assertEqual(
@@ -222,7 +222,7 @@ class TestConsole(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("all User")
             obj = f.getvalue()
-        my_id = obj[obj.find('(')+1:obj.find(')')]
+        my_id = obj[obj.find('(') + 1:obj.find(')')]
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("User.update(" + my_id + ")")
             self.assertEqual(
@@ -231,6 +231,41 @@ class TestConsole(unittest.TestCase):
             self.consol.onecmd("User.update(" + my_id + ", name)")
             self.assertEqual(
                 "** value missing **\n", f.getvalue())
+
+    def test_docstring_console(self):
+        """Checks docstring in the console"""
+        self.assertIsNot(console.__doc__, None,
+                         "Please write a docstring")
+        self.assertTrue(len(console.__doc__) >= 1,
+                        "Please write a docstring")
+
+    def test_help(self):
+        """ Test for help command. """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("help EOF")
+            cont_EOF = f.getvalue()
+            HBNBCommand().onecmd("help quit")
+            cont_quit = f.getvalue()
+            HBNBCommand().onecmd("help all")
+            cont_all = f.getvalue()
+            HBNBCommand().onecmd("help create")
+            cont_create = f.getvalue()
+            HBNBCommand().onecmd("help destroy")
+            cont_destroy = f.getvalue()
+            HBNBCommand().onecmd("help help")
+            cont_help = f.getvalue()
+            HBNBCommand().onecmd("help show")
+            cont_show = f.getvalue()
+            HBNBCommand().onecmd("help update")
+            cont_update = f.getvalue()
+        self.assertNotEqual(cont_EOF, "*** No help on EOF\n")
+        self.assertNotEqual(cont_quit, "*** No help on quit\n")
+        self.assertNotEqual(cont_all, "*** No help on all\n")
+        self.assertNotEqual(cont_create, "*** No help on create\n")
+        self.assertNotEqual(cont_destroy, "*** No help on destroy\n")
+        self.assertNotEqual(cont_help, "*** No help on help\n")
+        self.assertNotEqual(cont_show, "*** No help on show\n")
+        self.assertNotEqual(cont_update, "*** No help on update\n")
 
 
 if __name__ == "__main__":
