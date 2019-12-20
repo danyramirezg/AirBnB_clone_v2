@@ -4,6 +4,7 @@ import unittest
 import os
 from models.base_model import BaseModel
 import pep8
+import uuid
 
 
 class TestBaseModel(unittest.TestCase):
