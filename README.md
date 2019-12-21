@@ -29,6 +29,8 @@ Supported classes:
 - Place
 - Review
 
+<img align="center" src="https://i.ibb.co/g6XHQFf/Diagrama.jpg" width="100%">
+
 ### Commands
 
 These are some of the commands implemented in our console (HBNBCommand):
@@ -74,6 +76,8 @@ Ex:
 `help` or `help quit`
 
 Additionally, the console supports `<class name>.<command>(<parameters>)` syntax. Ex: `City.show(my_city_id)`
+
+<img align="center" src="https://i.ibb.co/L5wPt65/Consola.jpg" width="60%">
 
 ### Environment variables
 
