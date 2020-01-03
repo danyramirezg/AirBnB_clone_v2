@@ -12,7 +12,7 @@ sudo mkdir -p "/data/web_static/releases/test/"
 
 # Create a fake HTML file:
 sudo touch /data/web_static/releases/test/index.html 
-sudo echo "<html>
+echo "<html>
   <head>
   </head>
   <body>
