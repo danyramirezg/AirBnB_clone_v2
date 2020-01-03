@@ -29,6 +29,8 @@ Supported classes:
 - Place
 - Review
 
+<img align="center" src="https://i.ibb.co/g6XHQFf/Diagrama.jpg" width="100%">
+
 ### Commands
 
 These are some of the commands implemented in our console (HBNBCommand):
@@ -74,3 +76,47 @@ Ex:
 `help` or `help quit`
 
 Additionally, the console supports `<class name>.<command>(<parameters>)` syntax. Ex: `City.show(my_city_id)`
+
+<img align="center" src="https://i.ibb.co/L5wPt65/Consola.jpg" width="60%">
+
+### Environment variables
+
+- HBNB_ENV: running environment. It can be dev or test for the moment (production soon!)
+- HBNB_MYSQL_USER: the username of your MySQL
+- HBNB_MYSQL_PWD: the password of your MySQL
+- HBNB_MYSQL_HOST: the hostname of your MySQL
+- HBNB_MYSQL_DB: the database name of your MySQL
+- HBNB_TYPE_STORAGE: the type of storage used. It can be file (using FileStorage) or db (using DBStorage)
+
+## Example
+
+Example using the "console.py" file:
+
+```
+$ ./console.py
+(hbnb) all MyModel
+** class doesn't exist **
+(hbnb) show BaseModel
+** instance id missing **
+(hbnb) show BaseModel Holberton
+** no instance found **
+(hbnb) create BaseModel
+49faff9a-6318-451f-87b6-910505c55907
+(hbnb) all BaseModel
+["[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'created_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903293), 'id': '49faff9a-6318-451f-87b6-910505c55907', 'updated_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903300)}"]
+(hbnb) show BaseModel 49faff9a-6318-451f-87b6-910505c55907
+[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'created_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903293), 'id': '49faff9a-6318-451f-87b6-910505c55907', 'updated_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903300)}
+(hbnb) destroy
+** class name missing **
+(hbnb) update BaseModel 49faff9a-6318-451f-87b6-910505c55907 first_name "Betty"
+(hbnb) show BaseModel 49faff9a-6318-451f-87b6-910505c55907
+[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'first_name': 'Betty', 'id': '49faff9a-6318-451f-87b6-910505c55907', 'created_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903293), 'updated_at': datetime.datetime(2017, 10, 2, 3, 11, 3, 49401)}
+(hbnb) create BaseModel
+2dd6ef5c-467c-4f82-9521-a772ea7d84e9
+(hbnb) all BaseModel
+["[BaseModel] (2dd6ef5c-467c-4f82-9521-a772ea7d84e9) {'id': '2dd6ef5c-467c-4f82-9521-a772ea7d84e9', 'created_at': datetime.datetime(2017, 10, 2, 3, 11, 23, 639717), 'updated_at': datetime.datetime(2017, 10, 2, 3, 11, 23, 639724)}", "[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'first_name': 'Betty', 'id': '49faff9a-6318-451f-87b6-910505c55907', 'created_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903293), 'updated_at': datetime.datetime(2017, 10, 2, 3, 11, 3, 49401)}"]
+(hbnb) destroy BaseModel 49faff9a-6318-451f-87b6-910505c55907
+(hbnb) show BaseModel 49faff9a-6318-451f-87b6-910505c55907
+** no instance found **
+(hbnb) 
+```
