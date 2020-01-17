@@ -32,7 +32,7 @@ def do_deploy(archive_path):
     """Distributes an archive to the web servers"""
 
     b_path = archive_path[9:-4]
-    path = "/data/web_static/releases/{}/".format(b_path)
+    path = "/data/web_static/releases/{}".format(b_path)
 
     if os.path.exists(archive_path):
         # Upload the archive to the /tmp/ directory of the web server
