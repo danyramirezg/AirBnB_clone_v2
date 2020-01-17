@@ -4,8 +4,9 @@
  using the function deploy"""
 
 import os.path
-from fabric.api import local
+from fabric.api import local, put, run, env
 from datetime import datetime
+import os
 
 
 def do_pack():
@@ -26,8 +27,29 @@ def do_pack():
     return archi
 
 
-def do_deploy():
-    pass
+def do_deploy(archive_path):
+    """Distributes an archive to the web servers"""
+
+    b_path = archive_path[9:-4]
+    path = "/data/web_static/releases/{}/".format(b_path)
+
+    if os.path.exists(archive_path):
+        # Upload the archive to the /tmp/ directory of the web server
+        put(archive_path, '/tmp/')
+
+        # Uncompress the archive to the folder
+        run('mkdir -p {}'.format(path))
+        run('tar -xzf /tmp/{}.tgz -C {}/'.format(b_path, path))
+        run('rm /tmp/{}.tgz'.format(b_path))
+        run('mv {}/web_static/* {}'.format(path, path))
+        run('rm -rf {}/web_static'.format(path))
+        run('rm -rf /data/web_static/current')
+        run('ln -s {} /data/web_static/current'.format(path))
+        print("New version deployed!")
+
+        return True
+    else:
+        return False
 
 
 def deploy():
