@@ -30,7 +30,7 @@ def do_pack():
 
 def do_deploy(archive_path):
     """Distributes an archive to the web servers"""
-    
+
     b_path = archive_path[9:-4]
     path = "/data/web_static/releases/{}/".format(b_path)
 
