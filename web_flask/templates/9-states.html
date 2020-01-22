@@ -4,18 +4,25 @@
         <TITLE>HBNB</TITLE>
     </HEAD>
     <BODY>
-        <H1>States</H1>
-        <UL>
-            {% for list in states.values()|sort(attribute="name") %}
-            <LI>{{list.id}}: <B>{{list.name}}</B>
-                <UL>
-                    {% for city in list.cities|sort(attribute="name") %}
-                    <LI>{{city.id}}: <B>{{city.name}}</B></LI>
-                    {% endfor %}
-                </UL>
-            </LI>
+        {% if id %}
+            {% for list in states.values()|sort(attribute='name') if list.id==id %}
+                <H1>State: {{list.name}}</H1>
+                <H3>Cities:</H3>
+                    <UL>
+                        {% for city in list.cities|sort(attribute='name') %}
+                            <LI>{{city.id}}: <B>{{city.name}}</B></LI>
+                        {% endfor %}
+                    </UL>
+            {% else %}
+                <H1>Not found!</H1>
             {% endfor %}
-        </UL>
+        {% else %}
+            <H1>States</H1>
+            <UL>
+                {% for list in states.values()|sort(attribute='name') %}
+                    <LI>{{list.id}}: <B>{{list.name}}</B></LI>
+                {% endfor %}
+            </UL>
+        {% endif %}
     </BODY>
 </HTML>
-
