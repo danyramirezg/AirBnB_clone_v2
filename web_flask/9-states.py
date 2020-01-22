@@ -16,6 +16,13 @@ def cities_by_states():
                            states=storage.all("State"))
 
 
+@app.route("/states")
+@app.route("/states/<id>")
+def states(id=None):
+    """Display a HTML page"""
+    return render_template("9-states.html", states=storage.all("State"), id=id)
+
+
 @app.teardown_appcontext
 def teardown_appcontext(self):
     """Call in this method storage.close()"""
