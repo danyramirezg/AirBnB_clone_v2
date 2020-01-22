@@ -2,10 +2,10 @@
 """This is the state class"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+from models.city import City
 import os
 import models
-from models.city import City
-from sqlalchemy.orm import relationship
 
 
 class State(BaseModel, Base):
@@ -14,18 +14,20 @@ class State(BaseModel, Base):
         name: input name
     """
     __tablename__ = 'states'
-    name = Column(String(128), nullable=False)
+    if os.environ.get('HBNB_TYPE_STORAGE') == "db":
+        name = Column(String(128), nullable=False)
+        cities = relationship("City",
+                              cascade="all, delete",
+                              backref="my_state")
+    else:
+        name = ""
 
-    """If environment variable is different to DBStorage return the list of
-    City objects from storage linked to the current State """
-
-    if os.getenv('HBNB_TYPE_STORAGE') != 'db':
+    if os.environ.get('HBNB_TYPE_STORAGE') != "db":
         @property
         def cities(self):
-            list = []
-            for city in models.storage.all(City).values():
-                if city.state_id == self.id:
-                    list.append(city)
-            return list
-    else:
-        cities = relationship("City", backref="state", cascade="delete")
+            new_list = []
+            my_cities = models.storage.all(City)
+            for key, value in my_cities.items():
+                if value.state_id == self.id:
+                    new_list.append(value)
+            return new_list

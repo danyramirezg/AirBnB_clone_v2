@@ -25,7 +25,15 @@ class FileStorage:
         Return:
             returns a dictionary of __object
         """
-        return self.__objects
+        if cls:
+            objs = {}
+            cls_name = cls.__name__
+            for key, value in self.__objects.items():
+                if key.find(cls_name) != -1:
+                    objs[key] = value
+            return objs
+        else:
+            return self.__objects
 
     def new(self, obj):
         """sets __object to given obj
@@ -51,7 +59,7 @@ class FileStorage:
         try:
             with open(self.__file_path, 'r', encoding="UTF-8") as f:
                 for key, value in (json.load(f)).items():
-                    value = eval(value["__class__"])(**vaclue)
+                    value = eval(value["__class__"])(**value)
                     self.__objects[key] = value
         except FileNotFoundError:
             pass
@@ -65,6 +73,6 @@ class FileStorage:
         self.save()
 
     def close(self):
-        """call reload() method for deserializing
-        the JSON file to objects"""
+        """call reload() method for deserializing the JSON file to objects
+        """
         self.reload()
